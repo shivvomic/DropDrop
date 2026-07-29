@@ -20,15 +20,20 @@ const contentRoutes = require("./routes/contentRoutes");
 const app = express();
 
 connectDB();
-
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: process.env.CLIENT_URL,
+    credentials: true,
   },
 });
 
