@@ -1,0 +1,224 @@
+.room-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--card-bg);
+  width: 100%;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.logo-icon {
+  background: var(--text);
+  color: var(--bg);
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-purple {
+  color: var(--primary);
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.room-pill-container {
+  display: flex;
+  align-items: center;
+  background-color: var(--input-bg);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  gap: 8px;
+}
+
+.room-label {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.room-input-nav {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 70px;
+  font-weight: 700;
+  color: var(--text);
+  font-size: 0.875rem;
+}
+
+.room-actions-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.room-actions-nav button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+}
+
+.room-actions-nav button:hover {
+  color: var(--text);
+}
+
+.nav-btn-new {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--btn-border);
+  border-radius: 8px;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-btn-new:hover {
+  background-color: var(--btn-hover);
+  border-color: var(--border);
+}
+
+.btn-save-nav {
+  background-color: var(--text-secondary);
+  color: var(--bg);
+  border: none;
+}
+
+.btn-save-nav:hover {
+  background-color: var(--text);
+}
+
+.nav-btn-icon {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.nav-btn-icon:hover {
+  color: var(--text);
+}
+
+.join-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.join-modal {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.join-modal h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.25rem;
+}
+
+.join-modal p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.join-modal-input {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  padding: 12px 16px;
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  outline: none;
+  transition: 0.2s;
+}
+
+.join-modal-input:focus {
+  border-color: var(--primary);
+}
+
+.join-modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.join-modal-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.join-modal-btn:hover {
+  background: var(--btn-hover);
+}
+
+.join-modal-btn.primary {
+  background: var(--text);
+  color: var(--bg);
+  border: none;
+}
+
+.join-modal-btn.primary:hover {
+  background: var(--text-secondary);
+}
+
+@media (max-width: 980px) {
+  .nav-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,106 @@
+.content-card {
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  transition: all .25s ease;
+}
+
+.content-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.content-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 110px;
+
+  gap: 16px;
+
+  align-items: start;
+}
+
+.content-text {
+  margin: 0;
+
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  font-family: "JetBrains Mono", monospace;
+
+  font-size: .92rem;
+
+  line-height: 1.7;
+
+  color: var(--text);
+}
+
+.content-actions {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: stretch;
+
+  gap: 10px;
+}
+
+.copy-btn,
+.delete-btn {
+  height: 38px;
+
+  width: 110px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  border-radius: 10px;
+
+  border: 1px solid var(--border);
+
+  background: var(--btn-bg);
+
+  color: var(--text);
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+.copy-btn:hover {
+  background: var(--btn-hover);
+}
+
+.delete-btn:hover {
+  background: var(--btn-hover);
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.copy-btn:disabled,
+.delete-btn:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 700px) {
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .content-actions {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .copy-btn,
+  .delete-btn {
+    width: 95px;
+  }
+
+}
