@@ -65,11 +65,13 @@ async function downloadFile(req, res) {
     });
   }
 
-  const encodedName = encodeURIComponent(file.name);
+  // Cloudinary's fl_attachment throws a 400 Bad Request if the custom filename contains any dots (e.g., image.final.png -> fl_attachment:image.final).
+  // To safely support all file names, we just use fl_attachment without a custom name.
+  // Cloudinary will automatically use the public_id as the downloaded filename and append the correct extension.
   let downloadUrl = file.path;
 
   if (downloadUrl.includes("/upload/")) {
-    downloadUrl = downloadUrl.replace("/upload/", `/upload/fl_attachment:${encodedName}/`);
+    downloadUrl = downloadUrl.replace("/upload/", "/upload/fl_attachment/");
   }
 
   return res.redirect(downloadUrl);
