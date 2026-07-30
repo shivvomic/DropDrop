@@ -65,12 +65,22 @@ async function downloadFile(req, res) {
     });
   }
 
- const url = file.path.replace(
-  "/upload/",
-  `/upload/fl_attachment:${encodeURIComponent(file.name)}/`
-);
+  const resourceType = file.path.includes("/image/")
+    ? "image"
+    : file.path.includes("/video/")
+      ? "video"
+      : "raw";
 
-return res.redirect(url);
+  const url = cloudinary.url(file.publicId, {
+    resource_type: resourceType,
+    secure: true,
+    flags: "attachment",
+    attachment: file.name,
+  });
+
+  return res.redirect(url);
+
+  return res.redirect(url);
 }
 
 module.exports = {
