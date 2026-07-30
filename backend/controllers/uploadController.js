@@ -1,6 +1,7 @@
 // const path = require("path");
 
 const cloudinary = require("../config/cloudinary");
+const axios = require("axios");
 
 const Room = require("../models/room");
 
@@ -65,16 +66,23 @@ async function downloadFile(req, res) {
     });
   }
 
-  // Cloudinary's fl_attachment throws a 400 Bad Request if the custom filename contains any dots (e.g., image.final.png -> fl_attachment:image.final).
-  // To safely support all file names, we just use fl_attachment without a custom name.
-  // Cloudinary will automatically use the public_id as the downloaded filename and append the correct extension.
-  let downloadUrl = file.path;
+  try {
+    const response = await axios.get(file.path, {
+      responseType: "stream",
+    });
 
-  if (downloadUrl.includes("/upload/")) {
-    downloadUrl = downloadUrl.replace("/upload/", "/upload/fl_attachment/");
+    res.setHeader("Content-Disposition", `attachment; filename="${file.name}"`);
+
+    res.setHeader("Content-Type", response.headers["content-type"]);
+
+    response.data.pipe(res);
+  } catch (err) {
+    console.error(err.message);
+
+    return res.status(500).json({
+      message: "Failed to download file",
+    });
   }
-
-  return res.redirect(downloadUrl);
 }
 
 module.exports = {
