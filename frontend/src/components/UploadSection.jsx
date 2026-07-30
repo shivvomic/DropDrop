@@ -24,6 +24,7 @@ function UploadSection({ roomCode, selectedFiles, setSelectedFiles }) {
         {
           method: "POST",
           body: formData,
+          keepalive: true,
         },
       );
 

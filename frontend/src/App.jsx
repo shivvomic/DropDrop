@@ -11,7 +11,14 @@ import UploadSection from "./components/UploadSection";
 import FileList from "./components/FileList";
 import ContentList from "./components/ContentList";
 
-const socket = io(import.meta.env.VITE_SOCKET_URL);
+const socket = io(import.meta.env.VITE_SOCKET_URL, {
+  reconnection: true,
+  reconnectionAttempts: Infinity,
+  reconnectionDelay: 1000,
+  reconnectionDelayMax: 5000,
+  timeout: 20000,
+  transports: ["websocket", "polling"],
+});
 window.socket = socket;
 
 function App() {
@@ -40,13 +47,32 @@ function App() {
   }
 
   useEffect(() => {
-    socket.on("connect", () => {
+    const handleConnect = () => {
       console.log("Connected:", socket.id);
-    });
 
-    socket.on("room-joined", (room) => {
+      if (roomCode) {
+        socket.emit("join-room", roomCode);
+      }
+    };
+
+    const handleRoomJoined = (room) => {
       console.log("Joined:", room);
-    });
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible" && socket.disconnected) {
+        socket.connect();
+      }
+    };
+
+    const handleOnline = () => {
+      if (roomCode) {
+        socket.connect();
+      }
+    };
+
+    socket.on("connect", handleConnect);
+    socket.on("room-joined", handleRoomJoined);
 
     socket.on("load-files", setFiles);
     socket.on("file-uploaded", setFiles);
@@ -54,17 +80,23 @@ function App() {
     socket.on("load-contents", setContents);
     socket.on("content-added", setContents);
 
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("online", handleOnline);
+
     return () => {
-      socket.off("connect");
-      socket.off("room-joined");
+      socket.off("connect", handleConnect);
+      socket.off("room-joined", handleRoomJoined);
 
-      socket.off("load-files");
-      socket.off("file-uploaded");
+      socket.off("load-files", setFiles);
+      socket.off("file-uploaded", setFiles);
 
-      socket.off("load-contents");
-      socket.off("content-added");
+      socket.off("load-contents", setContents);
+      socket.off("content-added", setContents);
+
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("online", handleOnline);
     };
-  }, []);
+  }, [roomCode]);
 
   useEffect(() => {
     document.body.className = theme;
