@@ -21,7 +21,7 @@ function ContentEditor({ roomCode, content, setContent }) {
           body: JSON.stringify({
             text: content,
           }),
-          keepalive: true,
+          // keepalive: true,
         },
       );
 
