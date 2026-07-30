@@ -6,7 +6,8 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: async (req, file) => {
     const safeName = file.originalname
-      .replace(/[^a-zA-Z0-9._-]/g, "-")
+      .replace(/\.[^/.]+$/, "") 
+      .replace(/[^a-zA-Z0-9_-]/g, "-")
       .replace(/-+/g, "-");
 
     return {

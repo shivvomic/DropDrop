@@ -9,7 +9,13 @@ async function addFile(roomCode, files) {
   }
 
   for (const file of files) {
-    const resourceType = file.mimetype.startsWith("image/") ? "image" : "raw";
+    const resourceType = file.resource_type || (file.mimetype.startsWith("image/") ? "image" : "raw");
+    console.log({
+      originalname: file.originalname,
+      filename: file.filename,
+      path: file.path,
+      mimetype: file.mimetype,
+      resource_type: file.resource_type,});
 
     room.files.push({
       name: file.originalname,
