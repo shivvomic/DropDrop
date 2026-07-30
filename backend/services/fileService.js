@@ -9,19 +9,10 @@ async function addFile(roomCode, files) {
   }
 
   for (const file of files) {
-    const resourceType = file.resource_type || (file.mimetype.startsWith("image/") ? "image" : "raw");
-    console.log({
-      originalname: file.originalname,
-      filename: file.filename,
-      path: file.path,
-      mimetype: file.mimetype,
-      resource_type: file.resource_type,});
-
     room.files.push({
       name: file.originalname,
       path: file.path,
       publicId: file.filename,
-      resourceType,
     });
   }
 
@@ -46,8 +37,16 @@ async function deleteFile(roomCode, fileId) {
   }
 
   try {
+    let resourceType = "raw";
+
+    if (file.path.includes("/image/")) {
+      resourceType = "image";
+    } else if (file.path.includes("/video/")) {
+      resourceType = "video";
+    }
+
     await cloudinary.uploader.destroy(file.publicId, {
-      resource_type: file.resourceType,
+      resource_type: resourceType,
     });
   } catch (err) {
     console.error("Cloudinary delete failed:", err.message);

@@ -34,10 +34,6 @@ const roomSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
-      resourceType: {
-        type: String,
-        required: true,
-      },
       uploadedAt: {
         type: Date,
         default: Date.now,
