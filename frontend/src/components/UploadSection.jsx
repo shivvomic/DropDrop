@@ -2,7 +2,7 @@ import { useState } from "react";
 import { UploadCloud, File, Loader2, Check } from "lucide-react";
 import "./UploadSection.css";
 
-function UploadSection({ roomCode, selectedFiles, setSelectedFiles }) {
+function UploadSection({ roomCode, selectedFiles, setSelectedFiles,setFiles}) {
   const [dragging, setDragging] = useState(false);
   const [status, setStatus] = useState("idle");
 
@@ -31,8 +31,10 @@ function UploadSection({ roomCode, selectedFiles, setSelectedFiles }) {
       if (!response.ok) {
         throw new Error("Upload failed");
       }
+      const data = await response.json();
 
       setSelectedFiles([]);
+      setFiles(data.files);
 
       setStatus("uploaded");
 

@@ -24,6 +24,7 @@ async function uploadFile(req, res, io) {
 
   res.json({
     success: true,
+    files: room.files,
   });
 }
 

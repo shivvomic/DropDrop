@@ -129,6 +129,7 @@ function App() {
             roomCode={roomCode}
             selectedFiles={selectedFiles}
             setSelectedFiles={setSelectedFiles}
+            setFiles={setFiles}
           />
         </div>
 

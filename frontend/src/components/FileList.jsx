@@ -105,11 +105,14 @@ function FileList({ files, roomCode }) {
             </div>
 
             <div className="file-actions">
-              <a
-                href={`${import.meta.env.VITE_API_URL}/upload/download/${roomCode}/${file._id}`}
+              <button
+                className="action-btn download-btn"
+                onClick={() => {
+                  window.location.href = `${import.meta.env.VITE_API_URL}/upload/download/${roomCode}/${file._id}`;
+                }}
               >
-                <button className="action-btn download-btn">Download</button>
-              </a>
+                Download
+              </button>
 
               <button
                 className="action-btn delete-btn"
