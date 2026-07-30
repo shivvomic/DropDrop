@@ -64,15 +64,14 @@ async function downloadFile(req, res) {
       message: "File not found",
     });
   }
-
+console.log(file);
   const url = cloudinary.url(file.publicId, {
-    resource_type: file.resourceType,
-
-    flags: "attachment",
-
-    attachment: file.name,
-  });
-  console.log({
+  resource_type: file.resourceType,
+  secure: true,
+  flags: "attachment",
+  attachment: file.name,
+});
+console.log(url);console.log({
   publicId: file.publicId,
   resourceType: file.resourceType,
   generatedUrl: url,
