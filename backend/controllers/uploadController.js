@@ -72,6 +72,11 @@ async function downloadFile(req, res) {
 
     attachment: file.name,
   });
+  console.log({
+  publicId: file.publicId,
+  resourceType: file.resourceType,
+  generatedUrl: url,
+});
 
   return res.redirect(url);
 }
